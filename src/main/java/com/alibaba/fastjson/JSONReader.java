@@ -45,7 +45,7 @@ public class JSONReader implements Closeable {
         this.parser = parser;
     }
     
-    public void setTimzeZone(TimeZone timezone) {
+    public void setTimeZone(TimeZone timezone) {
         this.parser.lexer.setTimeZone(timezone);
     }
     
@@ -61,7 +61,7 @@ public class JSONReader implements Closeable {
         return this.parser.lexer.getLocale();
     }
     
-    public TimeZone getTimzeZone() {
+    public TimeZone getTimeZone() {
         return this.parser.lexer.getTimeZone();
     }
 
