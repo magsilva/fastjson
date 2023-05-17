@@ -79,7 +79,6 @@ public class JSONReader implements Closeable {
                 }
             }
         }
-    
         this.parser.accept(JSONToken.LBRACE, JSONToken.IDENTIFIER);
     }
 
@@ -128,23 +127,19 @@ public class JSONReader implements Closeable {
         }
         
         final int state = context.state;
-        int newState = -1;
         switch (state) {
             case PropertyKey:
-                newState = PropertyValue;
+                context.state = PropertyValue;
                 break;
             case StartArray:
-                newState = ArrayValue;
+                context.state = ArrayValue;
                 break;
             case PropertyValue:
             case StartObject:
-                newState = PropertyKey;
+                context.state = PropertyKey;
                 break;
             default:
                 break;
-        }
-        if (newState != -1) {
-            context.state = newState;
         }
     }
 
