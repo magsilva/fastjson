@@ -70,17 +70,16 @@ public class JSONReader implements Closeable {
             context = new JSONStreamContext(null, JSONStreamContext.StartObject);
         } else {
             startStructure();
-            if (lastContext != null
-                    && lastContext.parent == context) {
+            if(lastContext == null){
+                context = new JSONStreamContext(context, JSONStreamContext.StartObject);
+            }else if(lastContext.parent == context){
                 context = lastContext;
                 if (context.state != JSONStreamContext.StartObject) {
                     context.state = JSONStreamContext.StartObject;
                 }
-            } else {
-                context = new JSONStreamContext(context, JSONStreamContext.StartObject);
             }
         }
-
+    
         this.parser.accept(JSONToken.LBRACE, JSONToken.IDENTIFIER);
     }
 
