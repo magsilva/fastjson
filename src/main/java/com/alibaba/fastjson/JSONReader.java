@@ -89,13 +89,10 @@ public class JSONReader implements Closeable {
     }
 
     public void startArray() {
-        if (context == null) {
-            context = new JSONStreamContext(null, StartArray);
-        } else {
+        if (context != null) {
             startStructure();
-
-            context = new JSONStreamContext(context, StartArray);
         }
+        context = new JSONStreamContext(context, StartArray);
         this.parser.accept(JSONToken.LBRACKET);
     }
 
