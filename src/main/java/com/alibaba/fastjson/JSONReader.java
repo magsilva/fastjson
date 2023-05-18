@@ -178,9 +178,10 @@ public class JSONReader implements Closeable {
     public void close() {
         parser.close();
     }
-
-    public Integer readInteger() {
+    
+    public Object verifyObject() {
         Object object;
+
         if (context == null) {
             object = parser.parse();
         } else {
@@ -188,19 +189,18 @@ public class JSONReader implements Closeable {
             object = parser.parse();
             readAfter();
         }
+
+        return object;
+    }
+
+    public Integer readInteger() {
+        Object object = verifyObject();
 
         return TypeUtils.castToInt(object);
     }
 
     public Long readLong() {
-        Object object;
-        if (context == null) {
-            object = parser.parse();
-        } else {
-            readBefore();
-            object = parser.parse();
-            readAfter();
-        }
+        Object object = verifyObject();
 
         return TypeUtils.castToLong(object);
     }
